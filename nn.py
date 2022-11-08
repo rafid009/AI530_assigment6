@@ -52,7 +52,7 @@ class NeuralNetwork3(NeuralNetwork):
             nn.Linear(512, 10),
         )
 
-class NeuralNetwork4(nn.Module):
+class NeuralNetwork4(NeuralNetwork):
     def __init__(self):
         super(NeuralNetwork4, self).__init__()
         self.linear_relu_stack = nn.Sequential(
@@ -140,7 +140,7 @@ if __name__=="__main__":
     test_loader = DataLoader(test_data, batch_size=64)
     lr = 1e-3
     batch_size = 64
-    epochs = 10
+    epochs = 100
 
     print(f"ARCH - 1")
     model = NeuralNetwork()
