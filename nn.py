@@ -1,18 +1,15 @@
-import os
 import torch
 from torch import nn
-from torch.nn.functional import F
 import torch.optim as optim
 from torch.utils.data import DataLoader
 from torchvision import datasets
 import time
 from torchvision.transforms import ToTensor
-import matplotlib.pyplot as plt
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 print(f"Using {device} device")
-print(f"Device Name: {torch.cuda.get_device_name() if device == 'cuda' else 'cpu'}")
-print(f"Device Properties: {torch.cuda.get_device_properties() if device == 'cuda' else 'some cpu'}")
+print(f"Device Name: {torch.cuda.get_device_name(device) if device == 'cuda' else 'cpu'}")
+print(f"Device Properties: {torch.cuda.get_device_properties(device) if device == 'cuda' else 'some cpu'}")
 
 
 
