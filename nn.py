@@ -153,7 +153,7 @@ if __name__=="__main__":
     test_loader = DataLoader(test_data, batch_size=100, shuffle=True)
     lr = 1e-3
     batch_size = 64
-    epochs = 100
+    epochs = 200
 
     print(f"ARCH - 1")
     model = NeuralNetwork()
