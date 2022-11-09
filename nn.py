@@ -187,4 +187,4 @@ if __name__=="__main__":
     MCR4 = test_loop(test_loader, model, loss_fn)
     print(f"MCR = {MCR4}")
 
-    print(f"\n\nArch - 1, MCR = {MCR1}, time = {time1}s\n\nArch - 2, MCR = {MCR2}, time = {time2}s\n\nArch - 3, MCR = {MCR3}, time = {time3}s\n\nArch - 4, MCR = {MCR4}, time = {time4}s")
+    print(f"\n\nArch - 1,\n\tMCR = {MCR1},\n\ttime = {time1}s\n\nArch - 2,\n\tMCR = {MCR2},\n\ttime = {time2}s\n\nArch - 3,\n\tMCR = {MCR3},\n\ttime = {time3}s\n\nArch - 4,\n\tMCR = {MCR4},\n\ttime = {time4}s")
