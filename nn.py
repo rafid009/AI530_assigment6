@@ -5,6 +5,16 @@ from torch.utils.data import DataLoader
 from torchvision import datasets
 import time
 from torchvision.transforms import ToTensor
+import numpy as np
+import random
+
+def set_seed(seed):
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    np.random.seed(seed)
+    random.seed(seed)
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 print(f"Using {device} device")
@@ -100,7 +110,7 @@ def train_loop(dataloader, model, loss_fn, optimizer):
 
 def test_loop(dataloader, model, loss_fn):
     size = len(dataloader.dataset)
-    num_batches = len(dataloader)
+    # num_batches = len(dataloader)
     test_loss, correct, mistakes = 0, 0, 0
 
     with torch.no_grad():
@@ -109,11 +119,12 @@ def test_loop(dataloader, model, loss_fn):
             test_loss += loss_fn(pred, y).item()
             correct += (pred.argmax(1) == y).type(torch.float).sum().item()
             mistakes += (pred.argmax(1) != y).type(torch.float).sum().item()
-    test_loss /= num_batches
-    correct /= size
+            break
+    # test_loss /= num_batches
+    correct /= 100
 
     print(f"Test Error: \n Accuracy: {(100*correct):>0.1f}%, Avg loss: {test_loss:>8f} \n")
-    return mistakes / size
+    return mistakes / 100
 
 
 def calculate_gpu_time(train_loader, model, loss_fn, optimizer, epochs):
@@ -136,8 +147,10 @@ def calculate_gpu_time(train_loader, model, loss_fn, optimizer, epochs):
 
 if __name__=="__main__":
     train_data, test_data = prepare_datasets()
+    set_seed(10)
     train_loader = DataLoader(train_data, batch_size=64)
-    test_loader = DataLoader(test_data, batch_size=64)
+    set_seed(10)
+    test_loader = DataLoader(test_data, batch_size=100, shuffle=True)
     lr = 1e-3
     batch_size = 64
     epochs = 100
@@ -174,4 +187,4 @@ if __name__=="__main__":
     MCR4 = test_loop(test_loader, model, loss_fn)
     print(f"MCR = {MCR4}")
 
-    print(f"\n\nArch - 1, MCR = {MCR1}\n\nArch - 2, MCR = {MCR2}\n\nArch - 3, MCR = {MCR3}\n\nArch - 4, MCR = {MCR4}")
+    print(f"\n\nArch - 1, MCR = {MCR1}, time = {time1}s\n\nArch - 2, MCR = {MCR2}, time = {time2}s\n\nArch - 3, MCR = {MCR3}, time = {time3}s\n\nArch - 4, MCR = {MCR4}, time = {time4}s")
